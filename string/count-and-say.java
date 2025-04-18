@@ -1,20 +1,17 @@
 class Solution {
     public String countAndSay(int n) {
-        String res = "1";
-        for (int i = 1; i < n; i++) {
-            StringBuilder temp = new StringBuilder();
+        if(n == 1) return "1";
+        char[] next = countAndSay(n-1).toCharArray();
+        StringBuffer sb = new StringBuffer();
+        int i = 0;
+        while(i<next.length){
             int count = 1;
-            for (int j = 1; j < res.length(); j++) {
-                if (res.charAt(j) == res.charAt(j - 1)) {
-                    count++;
-                } else {
-                    temp.append(count).append(res.charAt(j - 1));
-                    count = 1;
-                }
+            while(i+1<next.length && next[i] == next[i+1]){
+                count++;
+                i++;
             }
-            temp.append(count).append(res.charAt(res.length() - 1));
-            res = temp.toString();
+            sb.append(count+""+next[i++]);
         }
-        return res;
+        return sb.toString();
     }
 }
